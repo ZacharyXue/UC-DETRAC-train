@@ -41,11 +41,21 @@ def xml2dict(mvi_name:str):
     ret['weather'] = content['sequence_attribute']['@sence_weather']
 
     ignore_list = []
-    for bbox in content['ignored_region']['box']:
-        # left, top, width, height
-        ignore_list.append([float(i) for i in bbox.values()])
-    # ret['ignored_region'] = np.array(ignore_list)
-    ret['ignored_region'] = ignore_list
+
+    if content['ignored_region'] and \
+        content['ignored_region']['box']:
+        
+        if not isinstance(content['ignored_region']['box'], list):
+            content['ignored_region']['box'] = \
+                [content['ignored_region']['box']]
+        
+        for bbox in content['ignored_region']['box']:
+            # left, top, width, height
+            ignore_list.append([float(i) for i in bbox.values()])
+        # ret['ignored_region'] = np.array(ignore_list)
+        ret['ignored_region'] = ignore_list
+    else:
+        ret['ignored_region'] = []
 
     frame_list = []  # num, bbox: np.array, labels
     for frame in content['frame']:

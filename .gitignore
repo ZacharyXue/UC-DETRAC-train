@@ -1,6 +1,8 @@
 # runtime tmp file
 __pycache__
 
+.vscode 
+
 # dataset
 DETRAC-Train-Annotations-XML
 Insight-MVT_Annotation_Train

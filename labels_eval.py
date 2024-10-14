@@ -17,6 +17,7 @@
 import os
 import cv2
 import json
+from tqdm import tqdm
 from data import xml2dict
 
 
@@ -123,7 +124,7 @@ if __name__ == "__main__":
     raw_data_path = 'data\Insight-MVT_Annotation_Train'
     mvi_list, num_frames, _ = get_all_mvi(raw_data_path)
 
-    for mvi_name in mvi_list:
+    for mvi_name in tqdm(mvi_list):
         mvi_dict = xml2dict(mvi_name)
         num_all_frames = len(mvi_dict['frames'])
 
